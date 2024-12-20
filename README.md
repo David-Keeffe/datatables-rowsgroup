@@ -13,7 +13,7 @@ To use DataTables RowsGroup plugin, include all required js:
 
 ```
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-<script src="http://cdn.datatables.net/1.10.7/js/jquery.dataTables.js"></script>
+<script src="http://cdn.datatables.net/2.0.0/js/jquery.dataTables.js"></script>
 <script src="dataTables.rowsGroup.js"></script>
 ```
 
