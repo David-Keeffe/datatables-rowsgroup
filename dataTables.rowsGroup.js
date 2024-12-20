@@ -1,6 +1,9 @@
 /*! RowsGroup for DataTables v2.0.0
  * 2015-2016 Alexey Shildyakov ashl1future@gmail.com
  * 2016 Tibor Wekerle
+ * 
+ * Updated 2024 by David Keeffe for Datatables 2.x.
+ * These changes are not backward compatible.
  */
 
 /**
@@ -43,8 +46,8 @@
 ShowedDataSelectorModifier = {
 	order: 'current',
 	page: 'current',
-	search: 'applied',
-}
+	search: 'applied'
+};
 
 GroupedColumnsOrderDir = 'asc';
 
@@ -62,7 +65,7 @@ var RowsGroup = function ( dt, columnsForGrouping )
 	this.order = []
 	
 	var self = this;
-	dt.on('order.dt', function ( e, settings) {
+	dt.on('order', function ( e, settings) {
 		if (!self.orderOverrideNow) {
 			self.orderOverrideNow = true;
 			self._updateOrderAndDraw()
@@ -71,32 +74,32 @@ var RowsGroup = function ( dt, columnsForGrouping )
 		}
 	})
 	
-	dt.on('preDraw.dt', function ( e, settings) {
+	dt.on('draw', function ( e, settings) {
 		if (self.mergeCellsNeeded) {
 			self.mergeCellsNeeded = false;
 			self._mergeCells()
 		}
 	})
 	
-	dt.on('column-visibility.dt', function ( e, settings) {
+	dt.on('column-visibility', function ( e, settings) {
 		self.mergeCellsNeeded = true;
 	})
 
-	dt.on('search.dt', function ( e, settings) {
+	dt.on('search', function ( e, settings) {
 		// This might to increase the time to redraw while searching on tables
 		//   with huge shown columns
 		self.mergeCellsNeeded = true;
 	})
 
-	dt.on('page.dt', function ( e, settings) {
+	dt.on('page', function ( e, settings) {
 		self.mergeCellsNeeded = true;
 	})
 
-	dt.on('length.dt', function ( e, settings) {
+	dt.on('length', function ( e, settings) {
 		self.mergeCellsNeeded = true;
 	})
 
-	dt.on('xhr.dt', function ( e, settings) {
+	dt.on('xhr', function ( e, settings) {
 		self.mergeCellsNeeded = true;
 	})
 
@@ -202,6 +205,7 @@ RowsGroup.prototype = {
 			
 			if (columnValues[iRow] === columnValues[newSequenceRow]) {
 				$(columnNodes[iRow]).hide()
+                                $(columnNodes[newSequenceRow]).addClass('dtspanned');
 			} else {
 				$(columnNodes[newSequenceRow]).show()
 				$(columnNodes[newSequenceRow]).attr('rowspan', (iRow-1) - newSequenceRow + 1)

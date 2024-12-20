@@ -1,8 +1,9 @@
 # datatables-rowsgroup
 The Datatables feature plugin that groups rows (merge cells vertically) in according to specified columns. It's inspired by [fnFakeRowspan] (https://datatables.net/plug-ins/api/fnFakeRowspan) DataTables plugin.
 
+This fork includes updates to allow the plugin to work with DataTables 2.x: it's not backwards compatible. The main change is in the event names.
 # Requirements
-Requires DataTables v1.10+ and according jQuery version.
+Requires DataTables v2.0+ and approproate jQuery version.
 
 # Examples
 
